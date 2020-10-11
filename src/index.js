@@ -1,12 +1,14 @@
 import dotenv from 'dotenv';
 import { Telegraf } from 'telegraf'
+import getCoin from './example';
 
 dotenv.config();
 
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
-bot.command('oldschool', (ctx) => ctx.reply('Hello'))
-bot.command('modern', ({ reply }) => reply('Yo'))
-bot.command('hipster', Telegraf.reply('λ'))
+bot.command('quote', async ({ reply }) => {
+    const msg = await getCoin();
+    return reply(msg)
+})
 bot.launch()
