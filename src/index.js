@@ -1,14 +1,12 @@
 import dotenv from 'dotenv';
 import { Telegraf } from 'telegraf'
 import getCoin, { coin } from './example';
-import connect from './utils'
+import connect, { getGraphUrl } from './utils'
 
 dotenv.config();
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
-const graphURL = 'https://www.solvetic.com/uploads/articles/monthly_11_2016/12dbd9b70a81765943eeb6bf6cb68e3c.png' //Provided by API (Example given)
-
 
 bot.command('bitcoin', async ({ reply }) => {
     const msg = await getCoin(coin.BITCOIN);
@@ -20,8 +18,8 @@ bot.command('connect', async ({ reply }) => {
     return reply(msg)
 })
 
-bot.command('getGraph', async (ctx) => { //Function that sends pictures (graphics in this case) to chat
-    ctx.replyWithPhoto(graphURL)
+bot.command('getGraph', async (ctx) => {
+    ctx.replyWithPhoto(getGraphUrl)
 })
 
 bot.command(['start', 'help'], async (ctx) => {
