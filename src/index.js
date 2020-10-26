@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { Telegraf } from 'telegraf'
 import getCoin, { coin } from './example';
-
+import connect from './utils'
 
 dotenv.config();
 
@@ -15,12 +15,21 @@ bot.command('bitcoin', async ({ reply }) => {
     return reply(msg)
 })
 
+bot.command('connect', async ({ reply }) => {
+    const msg = await connect();
+    return reply(msg)
+})
+
 bot.command('getGraph', async (ctx) => { //Function that sends pictures (graphics in this case) to chat
     ctx.replyWithPhoto(graphURL)
 })
 
 bot.command(['start', 'help'], async (ctx) => {
-    const text = `Try next commands.\n\n/help — list commands\n/bitcoin — get information about bitcoins from our AI\n/getGraph — get historical information about bitcoin`
+    const text = `Try next commands.\n
+    /help — list commands\n
+    /bitcoin — get information about bitcoins from our AI\n
+    /getGraph — get historical information about bitcoin\n
+    /connect - connect with Flask api`
     ctx.replyWithMarkdown(text)
 })
 
