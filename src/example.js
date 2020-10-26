@@ -6,6 +6,7 @@ export const coin = {
     BITCOIN: 1,
 }
 
+
 export default async (coin = coin.BITCOIN) => {
     const res = await axios.get(`${url}/${coin}`);
     const { data } = res.data
