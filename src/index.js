@@ -1,3 +1,4 @@
+import axios from 'axios';
 import dotenv from 'dotenv';
 import { Telegraf } from 'telegraf'
 const Markup = require('telegraf/markup')
@@ -21,7 +22,10 @@ bot.command('connect', async ({ reply }) => {
 })
 
 bot.command('getGraph', async (ctx) => {
-    ctx.replyWithPhoto(getGraphUrl)
+    const response = await axios(getGraphUrl, {
+        responseType: 'stream',
+    })
+    ctx.replyWithPhoto({ source: response.data })
 })
 
 bot.command(['start', 'help'], async (ctx) => {
